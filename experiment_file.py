@@ -18,3 +18,5 @@ for n in factors:
     new_factors.append(simplify(n.translate({ord(c): None for c in ' ()'})))
 
 print(new_factors)
+
+# Need to check for things like 2*x with + or - should be 2 and x
