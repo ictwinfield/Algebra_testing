@@ -1,5 +1,17 @@
 from sympy import *
 
+def list_of_factors(fl):
+    mf = []
+    for i in fl:
+        if not isinstance(i, list):
+            mf.append(i)
+        else:
+            for n in i:
+                for m in range(n[1]):
+                    mf.append(n[0])
+
+    return mf
+
 x, y = symbols("x,y")
 
 # Create a string that is a factorised expression
