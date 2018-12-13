@@ -4,12 +4,12 @@ x, y = symbols("x,y")
 
 # Create a string that is a factorised expression
 # expr = "2*(x+1)*(3*x-5)"
-expr = "2*x*(x+1)"
-print(expr)
-
-# Seperate it into its factors
-expr_factors = factor_list(expr)
-print(expr_factors)
+# expr = "2*x*(x+1)"
+# print(expr)
+#
+# # Seperate it into its factors
+# expr_factors = factor_list(expr)
+# print(expr_factors)
 # expr = "2*(2*x+1)*(x-3)"
 expr = "2*x*(x+1)"
 factors = expr.split("*(")
@@ -19,4 +19,12 @@ for n in factors:
 
 print(new_factors)
 
+result = []
+for i in new_factors:
+    if '+' in str(i) or '-' in str(i):
+        result.append(i)
+    else:
+        result.append(factor_list(i))
+
+print(result)
 # Need to check for things like 2*x with + or - should be 2 and x
