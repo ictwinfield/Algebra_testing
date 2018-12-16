@@ -11,7 +11,7 @@ class Quests(Gtk.Grid):
         self.parent = parent
         Gtk.Grid.__init__(self)
         self.problems = Questions()
-        self.solved = -1
+        self.problem = 0
         self.correct = 0
 
         blank_image = Image.new("RGB", (400, 200), '#ffffff')
@@ -34,23 +34,23 @@ class Quests(Gtk.Grid):
         self.submit_btn.connect("clicked", self.submit)
 
     def submit(self, widget):
-        if self.solved >= 0:
+        res = widget.get_property("label")
+        if res == "Start":
+            self.submit_btn.set_label("Submit")
+            self.quest_image.set_from_file(self.problems.images[self.problem])
+        else:
             mal = str_to_list_of_factors(self.ans.get_text())
-            mql = list_of_factors(factor_list(self.problems.ans[self.solved - 1]))
-            if compare_factors(mal,mql ):
+            mql = list_of_factors(factor_list(self.problems.ans[self.problem]))
+            if compare_factors(mal, mql):
                 print("Correct")
                 self.correct += 1
             else:
-                print(self.problems.ans[self.solved - 1])
-            self.quest_image.set_from_file(self.problems.images[self.solved])
+                print(self.problems.ans[self.problem])
+            self.problem += 1
             self.ans.set_text("")
-            self.solved += 1
-            self.lbl.set_text(str(self.correct)+ "/" + str(self.solved))
+            self.quest_image.set_from_file(self.problems.images[self.problem])
+            self.lbl.set_text(str(self.correct)+ "/" + str(self.problem))
 
-        if self.solved < 0:
-            self.submit_btn.set_label("Submit")
-            self.solved += 1
-            self.quest_image.set_from_file(self.problems.images[0])
 
 
 
