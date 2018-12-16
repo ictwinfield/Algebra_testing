@@ -1,6 +1,13 @@
 from sympy import *
 
+x, y = symbols("x,y")
+
 def list_of_factors(fl):
+    """Produce a list of factors of an expression
+    with multiple entries when a factor occurs more
+    than once.
+    fl is a factor list
+    """
     mf = []
     for i in fl:
         if not isinstance(i, list):
@@ -9,34 +16,43 @@ def list_of_factors(fl):
             for n in i:
                 for m in range(n[1]):
                     mf.append(n[0])
-
     return mf
 
-x, y = symbols("x,y")
 
-# Create a string that is a factorised expression
-# expr = "2*(x+1)*(3*x-5)"
-# expr = "2*x*(x+1)"
-# print(expr)
-#
-# # Seperate it into its factors
-# expr_factors = factor_list(expr)
-# print(expr_factors)
-# expr = "2*(2*x+1)*(x-3)"
-expr = "2*x*(x+1)"
-factors = expr.split("*(")
-new_factors = []
-for n in factors:
-    new_factors.append(simplify(n.translate({ord(c): None for c in ' ()'})))
+def str_to_list_of_factors(expr):
+    after = expr
+    factors = []
+    present = False
+    if '*(' in after:
+        present = True
+    while(present):
+        i = after.index('*(')
+        before = after[:i]
+        factors.append(simplify(before))
+        after = after[i + 1:]
+        if not '*(' in after:
+            present = False
+    factors.append(simplify(after))
+    result = []
+    for f in factors:
+        if str(f)[-3:-1] == "**":
+            power = int(str(f)[-1])
+            inside = simplify(str(f)[1:-4])
+            for n in range(power):
+                result.append(inside)
+        elif '+' in str(f) or '-' in str(f):
+            result.append(f)
+        else:
+            temp = str(f).split('*')
+            for t in temp:
+                result.append(simplify(t))
+    return result
 
-print(new_factors)
 
-result = []
-for i in new_factors:
-    if '+' in str(i) or '-' in str(i):
-        result.append(i)
-    else:
-        result.append(factor_list(i))
-
-print(result)
-# Need to check for things like 2*x with + or - should be 2 and x
+# Try
+p = "2*x*(x+3)**2*(x+6)"
+# a = factor_list("2*x*(x+3)**2*(x+6)")
+# print(a)
+# b = list_of_factors(a)
+# print(b)
+print(str_to_list_of_factors(p))
