@@ -4,13 +4,14 @@ from gi.repository import Gtk
 from PIL import Image
 from questions import *
 from sympy import *
+from experiment_file import *
 
 class Quests(Gtk.Grid):
     def __init__(self, parent):
         self.parent = parent
         Gtk.Grid.__init__(self)
         self.problems = Questions()
-        self.solved = 0
+        self.solved = -1
         self.correct = 0
 
         blank_image = Image.new("RGB", (400, 200), '#ffffff')
@@ -33,9 +34,12 @@ class Quests(Gtk.Grid):
         self.submit_btn.connect("clicked", self.submit)
 
     def submit(self, widget):
-        if self.solved > 0:
-            if (self.ans.get_text() == self.problems.ans[self.solved - 1]):
+        if self.solved >= 0:
+            mal = str_to_list_of_factors(self.ans.get_text())
+            mql = list_of_factors(factor_list(self.problems.ans[self.solved - 1]))
+            if compare_factors(mal,mql ):
                 print("Correct")
+                self.correct += 1
             else:
                 print(self.problems.ans[self.solved - 1])
             self.quest_image.set_from_file(self.problems.images[self.solved])
@@ -43,10 +47,13 @@ class Quests(Gtk.Grid):
             self.solved += 1
             self.lbl.set_text(str(self.correct)+ "/" + str(self.solved))
 
-        if self.solved == 0:
+        if self.solved < 0:
             self.submit_btn.set_label("Submit")
             self.solved += 1
             self.quest_image.set_from_file(self.problems.images[0])
+
+
+
 
 
         # print("Solved = " + str(self.solved))

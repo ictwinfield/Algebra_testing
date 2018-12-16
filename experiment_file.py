@@ -11,7 +11,8 @@ def list_of_factors(fl):
     mf = []
     for i in fl:
         if not isinstance(i, list):
-            mf.append(i)
+            if i != 1:
+                mf.append(i)
         else:
             for n in i:
                 for m in range(n[1]):
@@ -47,3 +48,26 @@ def str_to_list_of_factors(expr):
             for t in temp:
                 result.append(simplify(t))
     return result
+
+
+def compare_factors(quest, ans):
+    ql = quest
+    al = ans
+    if len(al) != len(ql):
+        return False
+    size = len(al)
+    correct = True
+    for i in al:
+        if i in ql:
+            del ql[ql.index(i)]
+        else:
+            return False
+    return correct
+
+# my_quest = 'x**2+x-6'
+# my_ans = '(x+3)*(x-2)'
+# mql = list_of_factors(factor_list(my_quest))
+# mal = str_to_list_of_factors(my_ans)
+# print(mql)
+# print(mal)
+# print(compare_factors(mql, mal))
