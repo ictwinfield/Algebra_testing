@@ -47,12 +47,3 @@ def str_to_list_of_factors(expr):
             for t in temp:
                 result.append(simplify(t))
     return result
-
-
-# Try
-p = "2*x*(x+3)**2*(x+6)"
-# a = factor_list("2*x*(x+3)**2*(x+6)")
-# print(a)
-# b = list_of_factors(a)
-# print(b)
-print(str_to_list_of_factors(p))
