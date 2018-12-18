@@ -51,15 +51,9 @@ class Quests(Gtk.Grid):
                 self.ans.set_text("")
                 self.quest_image.set_from_file(self.problems.images[self.problem])
                 self.lbl.set_text(str(self.correct)+ "/" + str(self.problem))
-                self.parent.review.lbl2.set_text(str(self.correct)+ "/" + str(self.problem))
             else:
+                self.problem += 1
                 self.submit_btn.set_sensitive(False)
                 self.parent.set_page_complete(self.parent.quests, True)
-
-
-
-
-
-
-
-        # print("Solved = " + str(self.solved))
+                self.parent.review.lbl2.set_text(str(self.correct)+ "/" + str(self.problem))
+        
