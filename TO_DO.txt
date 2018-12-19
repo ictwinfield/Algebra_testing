@@ -1,0 +1,7 @@
+Move the functions from experiment_file.py to the Factorise class
+
+Each question type class must
+Create a question depending on the level
+Produce an image of the answer
+Create an answer
+Have a function to compare the users answer to the correct answer

@@ -63,11 +63,3 @@ def compare_factors(quest, ans):
         else:
             return False
     return correct
-
-# my_quest = 'x**2+x-6'
-# my_ans = '(x+3)*(x-2)'
-# mql = list_of_factors(factor_list(my_quest))
-# mal = str_to_list_of_factors(my_ans)
-# print(mql)
-# print(mal)
-# print(compare_factors(mql, mal))

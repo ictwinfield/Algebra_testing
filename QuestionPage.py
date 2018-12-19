@@ -39,6 +39,9 @@ class Quests(Gtk.Grid):
             self.submit_btn.set_label("Submit")
             self.quest_image.set_from_file(self.problems.images[self.problem])
         else:
+            # These need to only take the text answer and the problem answer
+            # Need to change compare_factors to account for this.
+            # Should read compare answers
             mal = str_to_list_of_factors(self.ans.get_text())
             mql = list_of_factors(factor_list(self.problems.ans[self.problem]))
             if compare_factors(mal, mql):
@@ -56,4 +59,3 @@ class Quests(Gtk.Grid):
                 self.submit_btn.set_sensitive(False)
                 self.parent.set_page_complete(self.parent.quests, True)
                 self.parent.review.lbl2.set_text(str(self.correct)+ "/" + str(self.problem))
-        

@@ -59,6 +59,14 @@ class Questions():
         problem = Factorise(1, fn)
         questions.append(problem.get_question())
         ans.append(problem.get_answer())
-        # print("Problem " + str(i))
-        # print(problem.get_question())
-        # print(problem.get_answer())
+
+
+class Questions2():
+    problems = []
+    for i in range(5):
+        fn = "quest" + str(i) + ".png"
+        problems.append(Factorise(1, fn))
+
+
+a_set = Questions2()
+print(a_set.problems[2].get_question())
